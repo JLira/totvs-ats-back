@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  atsdb:
+    container_name: atsdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    
+  atsback:
+    container_name: atsback
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Development
+     - "DatabaseSettings:ConnectionString=mongodb://atsdb:27017" 
+    depends_on: 
+     - atsdb
+    ports: 
+     - "8000:80"

@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  atsdb:
+    image: mongo
+    
+  atsback:
+    image: ${DOCKER_REGISTRY-}atsback
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+volumes:
+  mongo_data:    
